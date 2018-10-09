@@ -17,13 +17,13 @@ renderTodos(todos, filters)
 // ***App event listeners***
 
 // event listener for search box
-document.querySelector('#search-text').addEventListener('input', function (e) {
+document.querySelector('#search-text').addEventListener('input', (e) => {
     filters.searchText = e.target.value
     renderTodos(todos, filters)
 })
 
 // event listener for creating new todo submit button
-document.querySelector('#new-todo').addEventListener('submit', function(e) {
+document.querySelector('#new-todo').addEventListener('submit', (e) => {
     e.preventDefault()
     todos.push({
         id: uuidv4(),
@@ -37,8 +37,10 @@ document.querySelector('#new-todo').addEventListener('submit', function(e) {
 })
 
 // event listener for hide completed check box
-document.querySelector('#hide-completed').addEventListener('change', function (e) {
+document.querySelector('#hide-completed').addEventListener('change', (e) => {
     filters.hideCompleted = e.target.checked
     renderTodos(todos, filters)   
 })
+
+
 
