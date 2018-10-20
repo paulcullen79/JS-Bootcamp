@@ -1,3 +1,5 @@
+'use strict'
+
 // uuid function call
 uuidv4()
 
