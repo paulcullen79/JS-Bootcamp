@@ -1,4 +1,5 @@
 // Prototypal Inheritance
+// myPerson --> Person.prototype --> Object.prototype --> null
 
 class Person {
     constructor(firstName, lastName, age, likes = []) {
@@ -16,41 +17,43 @@ class Person {
 
         return bio
     }
-    setName(fullName) {
+    set fullName(fullName) {
         const names = fullName.split(' ')
         this.firstName = names[0]
         this.lastName = names[1]
     }
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`
+    }
 }
 
-// const me = new Person('Andrew', 'Mead', 27, ['Teaching', 'Biking'])
-// me.setName('Alexis Turner')
-// console.log(me.getBio())
-
-// const person2 = new Person('Clancey', 'Turner', 51)
-// console.log(person2.getBio())
+class Employee extends Person {
+    constructor(firstName, lastName, age, position, likes) {
+        super(firstName, lastName, age, likes)
+        this.position = position
+    }
+    getBio() {
+        return `${this.fullName} is a ${this.position}.`
+    }
+    getYearsLeft() {
+        return 65 - this.age
+    }
+}
 
 class Student extends Person {
-    constructor (firstName, lastName, age, likes, grade) {
+    constructor(firstName, lastName, age, grade, likes) {
         super(firstName, lastName, age, likes)
         this.grade = grade
     }
+    updateGrade(change) {
+        this.grade += change
+    }
     getBio() {
-        let bio = ''
-        if (this.grade >= 70) {
-            bio = console.log(`${this.firstName} is passing the course.`)
-        } else {
-            bio = console.log(`${this.firstName} is failing the course.`)
-        }
-        return bio
-    } 
-
-    updateGrade(update) {
-        this.grade += update
+        const status = this.grade >= 70 ? 'passing' : 'failing'
+        return `${this.firstName} is ${status} the class.`
     }
 }
 
-student1 = new Student ('Paul', 'Cullen', 39, '', 80)
-student1.getBio()
-student1.updateGrade(-20)
-student1.getBio()
+const me = new Employee('Andrew', 'Mead', 27, 'Teacher', [])
+me.fullName = 'Clancey Turner'
+console.log(me.getBio())
